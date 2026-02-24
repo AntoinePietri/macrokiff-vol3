@@ -16,14 +16,14 @@ if 'choix_final_valide' not in st.session_state:
 nom_etudiant = st.text_input("Avant de commencer, veuillez entrer votre Prénom et Nom :")
 
 if nom_etudiant:
-    st.write(f"Bienvenue **{nom_etudiant}**. Consigne : maximiser \( Y \) en gardant un déficit budgétaire inférieur à 2% (\( SB/Y \ge -0.02 \)) et un déficit extérieur inférieur à 2% (\( SE/Y \ge -0.02 \)).")
+    st.write(f"Bienvenue **{nom_etudiant}**. Consigne : maximiser Y en gardant un déficit budgétaire inférieur à 2% (SB/Y >= -0.02) et un déficit extérieur inférieur à 2% (SE/Y >= -0.02).")
     
     st.subheader("1. Dépenses publiques")
-    g0 = st.number_input("Niveau d'investissement public (\( G_0 \)) [0 - 100]", min_value=0.0, max_value=100.0, value=0.0, step=1.0)
+    g0 = st.number_input("Niveau d'investissement public (G0) [0 - 100]", min_value=0.0, max_value=100.0, value=0.0, step=1.0)
     
     st.subheader("2. Recettes fiscales et douanières")
-    t0 = st.number_input("Impôt forfaitaire (\( T_0 \)) [0 - 100]", min_value=0.0, max_value=100.0, value=0.0, step=1.0)
-    d = st.number_input("Droit de douane (\( d \)) [0 - 1]", min_value=0.0, max_value=1.0, value=0.0, step=0.01)
+    t0 = st.number_input("Impôt forfaitaire (T0) [0 - 100]", min_value=0.0, max_value=100.0, value=0.0, step=1.0)
+    d = st.number_input("Droit de douane (d) [0 - 1]", min_value=0.0, max_value=1.0, value=0.0, step=0.01)
 
     def calculer_equilibre(g, t, douane):
         # Résolution du modèle
@@ -50,7 +50,7 @@ if nom_etudiant:
                 ratio_sb = (sb / y_eq) * 100 if y_eq != 0 else 0
                 ratio_bc = (bc / y_eq) * 100 if y_eq != 0 else 0
                 
-                st.info(f"**Résultats de la simulation :**\n- Revenu (\( Y \)) : {y_eq:.2f}\n- Solde budgétaire : {sb:.2f} ({ratio_sb:.2f}%)\n- Solde extérieur : {bc:.2f} ({ratio_bc:.2f}%)")
+                st.info(f"**Résultats de la simulation :**\n- Revenu (Y) : {y_eq:.2f}\n- Solde budgétaire : {sb:.2f} ({ratio_sb:.2f}%)\n- Solde extérieur : {bc:.2f} ({ratio_bc:.2f}%)")
                 st.session_state.essais += 1
         else:
             st.warning("Vous avez épuisé vos 5 simulations. Il est temps de valider votre choix final.")
